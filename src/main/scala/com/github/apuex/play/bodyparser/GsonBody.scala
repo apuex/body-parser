@@ -25,7 +25,7 @@ class GsonBody @Inject()(val gson: GsonConfig,
                          val temporaryFileCreator: TemporaryFileCreator) extends PlayBodyParsers {
 
   private val methodCache = new ConcurrentHashMap[Class[_], Method]
-  private val writable = (Writeable((a: String) => ByteString.fromArrayUnsafe(a.getBytes("utf-8")), Some("application/json")))
+  private val writable = (Writeable((a: String) => ByteString.fromArrayUnsafe(a.getBytes("utf-8")), Some("application/json; charset=utf-8")))
 
   def print[T <: Message](o: T) = Ok(gson.printer.print(o))(writable)
 
