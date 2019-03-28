@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   protobufJavaUtil,
   play,
   playJson,
+  queryRuntime % Test,
   slf4jApi % Test,
   slf4jSimple % Test,
   scalaTest % Test
