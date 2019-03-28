@@ -1,7 +1,7 @@
 import sbt._
 
 object Dependencies {
-  lazy val scalaVersionNumber    = "2.12.7"
+  lazy val scalaVersionNumber    = "2.12.8"
   lazy val artifactVersionNumber = "1.0.0"
   lazy val artifactGroupName     = "com.github.apuex.play"
   lazy val playVersion           = "2.7.0"

@@ -1,18 +1,19 @@
 package com.github.apuex.play.bodyparser
 
-import java.io.InputStreamReader
+import java.io._
 import java.lang.reflect.Method
-import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent._
 
-import akka.stream.Materializer
+import akka.stream._
+import akka.util._
 import com.google.protobuf.Message
 import com.google.protobuf.util.JsonFormat.{Parser, Printer}
-import javax.inject.{Inject, Singleton}
-import play.api.http.Status.UNSUPPORTED_MEDIA_TYPE
-import play.api.http.{HttpErrorHandler, ParserConfiguration}
-import play.api.libs.Files.TemporaryFileCreator
-import play.api.mvc.{BodyParser, PlayBodyParsers}
-
+import javax.inject._
+import play.api.http.Status._
+import play.api.http._
+import play.api.libs.Files._
+import play.api.mvc.Results._
+import play.api.mvc._
 
 case class GsonConfig(val parser: Parser, val printer: Printer)
 
@@ -24,8 +25,9 @@ class GsonBody @Inject()(val gson: GsonConfig,
                          val temporaryFileCreator: TemporaryFileCreator) extends PlayBodyParsers {
 
   private val methodCache = new ConcurrentHashMap[Class[_], Method]
+  private val writable = (Writeable((a: String) => ByteString.fromArrayUnsafe(a.getBytes("utf-8")), Some("application/json")))
 
-  def print[T <: Message](o: T) = gson.printer.print(o)
+  def print[T <: Message](o: T) = Ok(gson.printer.print(o))(writable)
 
   def parser[T <: Message](clazz: Class[T]): BodyParser[T] = parser[T](clazz, DefaultMaxTextLength)
 
