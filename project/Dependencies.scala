@@ -14,7 +14,7 @@ object Dependencies {
   lazy val slf4jApi         = "org.slf4j"                 %   "slf4j-api"                          % "1.7.25"
   lazy val slf4jSimple      = "org.slf4j"                 %   "slf4j-simple"                       % "1.7.25"
   lazy val scalaTest        = "org.scalatest"             %%  "scalatest"                          % "3.0.4"
-  lazy val queryRuntime     = "com.github.apuex.springbootsolution" %%  "runtime"                  % "1.0.7"
+  lazy val queryRuntime     = "com.github.apuex.springbootsolution" %%  "runtime"                  % "1.0.8"
 
   lazy val localRepo = Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
 }
